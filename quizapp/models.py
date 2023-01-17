@@ -1,0 +1,51 @@
+from django.db import models
+
+# Create your models here.
+
+class TimeStampModal(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    
+    
+    class Meta:
+        abstract = True
+     
+
+
+class Category(TimeStampModal):
+    category = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.category    
+    
+    
+    
+    
+class QQuestion(TimeStampModal):
+    title = models.CharField(max_length=200)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+        return self.title
+    
+        
+   
+ 
+class Answer(TimeStampModal):
+    title = models.CharField(max_length=250)
+    question = models.ForeignKey(QQuestion, on_delete=models.CASCADE)
+    is_correct = models.BooleanField(default=False)
+    
+    
+    def __str__(self):
+        return self.title
+    
+         
+    
+    
+
+    
+
+
+    
