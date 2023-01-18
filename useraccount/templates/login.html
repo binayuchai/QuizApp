@@ -1,0 +1,12 @@
+{% extends 'base_temp.html' %}
+{% block maincontent %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+<input type="submit" class="btn btn-primary" value="Log In">
+</form>
+<h2>Don't have an account ? </h2>
+<a href="{% url 'user:register' %}">Register</a>
+{% endblock maincontent %}
+
+

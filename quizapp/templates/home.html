@@ -1,19 +1,18 @@
-{% extends 'base.html' %}
-{% block content %}
 
-<h1>Quizz App</h1>
-<form action="{% url 'quizapp:result' %}" method="post">{% csrf_token %}
-    {% for question in questions %}
+{% extends 'base_temp.html' %}
+{% block maincontent %}
 
-        <h3>{{forloop.counter|add:0}}. {{question.title}}</h3>
-        {% for answer in question.answer_set.all %}
-            
-   
-                <p><input type="checkbox" name="answer_user" id="answer_user" value="{{answer.title}}"> <span>{{answer.title}}</span></p>
 
+
+<div class="mt-3">
+    <h2> Choose Category</h2>
+    <h5 class="mt-4 py-2" >
+        <ol>
+            {% for cat in categories %}
+            <li class="mt-2" ><a class="text-decoration-none" href="{% url 'quizapp:q_question' cat.id %}">{{cat.category}}</a></li>
 
         {% endfor %}
-    {% endfor%}
-    <button type="submit" class="btn btn-primary" >Submit</button>
-</form>
-{% endblock content %}
+        </ol>
+    </h5>
+</div>
+{% endblock maincontent %}

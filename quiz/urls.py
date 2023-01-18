@@ -18,4 +18,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('quizapp.urls', namespace="quizapp")),
+    path("user/",include("useraccount.urls",namespace="user")),
 ]
