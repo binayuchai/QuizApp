@@ -42,20 +42,28 @@ class Answer(TimeStampModal):
     def __str__(self):
         return self.title
     
-# class Progress(TimeStampModal):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="progress_user")
-#     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-#     is_started = models.BooleanField(default=False)
-#     is_completed = models.BooleanField(default=False)
+class Progress(TimeStampModal):
+    player = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="progress_user")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    is_started = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return str(self.category)
+    
+
     
     
     
     
-# class Result(TimeStampModal):
-#     score = models.CharField(max_length=200)
-#     player = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="result")
-#     category = models.ForeignKey(Category,on_delete=models.CASCADE)
-#     is_completed = models.BooleanField(default=False)
+class Result(TimeStampModal):
+    score = models.CharField(max_length=200)
+    player = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="result")
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+        return str(self.score)
                   
     
     

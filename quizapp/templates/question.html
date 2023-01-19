@@ -10,10 +10,13 @@
             
    
                 <p><input type="checkbox" name="answer_user" id="answer_user" value="{{answer.title}}"> <span>{{answer.title}}</span></p>
+               
 
 
         {% endfor %}
     {% endfor%}
+    <input type="hidden" name="result_category" value="{{categories.category}}" >
+
     <button type="submit" class="btn btn-primary" >Check Result</button>
 </form> 
 {% endblock maincontent %}

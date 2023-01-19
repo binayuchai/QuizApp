@@ -1,1 +1,11 @@
 {% extends 'base_temp.html' %}
+{% block maincontent %}
+<h1>Progress Quiz Category </h1>
+<ul>
+    {% for progress in progresses %}
+  
+    <li><a href="">{{ progress.category }}</a></li>
+
+</ul>
+{% endfor %}
+{% endblock maincontent %}

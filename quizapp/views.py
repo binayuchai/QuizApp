@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpRequest
-from quizapp.models import QQuestion,Answer, Category
-
+from quizapp.models import QQuestion,Answer, Category, Progress, Result
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 # Create your views here.
 def home(request):
     questions = QQuestion.objects.all()
@@ -10,7 +11,7 @@ def home(request):
     context = {"questions":questions,"answers":answers,"categories":categories}
     return render(request,"home.html",context)
 
-
+@login_required(login_url="user:login")
 def result(request):
     answer_users = request.POST.getlist('answer_user') 
     print(answer_users)
@@ -29,39 +30,73 @@ def result(request):
         for answer in right_answer:
             if answer == answer_user:
                 marks_count = marks_count + 1
+                             
                 
             
             
-    print(marks_count)      
+    print(marks_count)
+    category_result = request.POST.get('result_category')
+    # print(question2)
+    # question1 = QQuestion.objects.get(title=question2)
+    # print(question1)
+    # category = Category.objects.filter()
+    result = Result(score=marks_count,player=request.user,category=Category.objects.get(category=category_result))
+    result.save()
+    
     context = {"marks":marks_count}  
-    Progress.is_completed = True
+    
             
     return render(request,"result.html",context)
 
 
-
+@login_required(login_url="user:login")
 def q_question(request,categoryid):
+
     categories = Category.objects.get(id=categoryid)
     questions = QQuestion.objects.filter(category=categories)
     answers = Answer.objects.all()
-    context = {"questions":questions,"answers":answers,"categories":categories}
+    print(categories)
+   
 
-    # obj,created = Progress.objects.get_or_create(
-    #     is_started = True,
-    #     is_completed = False,
-    #     defaults={
-    #         "progress_categories":categories,
-    #         "progress_questions":questions,
-    #         "progress_answers":answers,
-    #     }
-                    
-            
-    #     )
+    obj,created = Progress.objects.get_or_create(
+        is_started = True,
+        is_completed = False,
+        player = request.user,
+        category=categories,
+        defaults={
+            "category":categories,
+            "is_started":True,
+            "is_completed":False,
+  
+        }
+                        
+        )
+    
+    # paginator = Paginator(questions,10)
+    # page_number  = request.Get.page('page')
+    # page_obj = paginator.get_page(page_number)
+    
+    context = {"questions":questions,"answers":answers,"categories":categories}
     
     return render(request,"question.html",context)
 
-# def progress(request):
-#         pass
+def progress(request):
+    progresses = Progress.objects.filter(is_started=True,is_completed=False, player=request.user)
+    print(progresses)
+    categories = Category
+    context = {"progresses":progresses,"categories":categories}
+    return render(request,"progress.html",context)
+    
+    
+    
+def completed(request):
+    results = Result.objects.filter(player=request.user)
+
+    context={"results":results}
+    return render(request,"completed.html",context)
+
+        
+    
 
     
         

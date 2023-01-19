@@ -1,0 +1,11 @@
+{% extends 'base_temp.html' %}
+
+{% block maincontent %}
+{% for result in results %}
+
+ <p>Score in Category: {{result.category}} = {{ result.score }}</p>
+
+
+{% endfor %}
+
+{% endblock maincontent %}
