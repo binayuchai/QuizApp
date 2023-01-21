@@ -80,15 +80,17 @@ def q_question(request,categoryid):
     
     return render(request,"question.html",context)
 
+
+@login_required(login_url="user:login")
 def progress(request):
     progresses = Progress.objects.filter(is_started=True,is_completed=False, player=request.user)
     print(progresses)
-    categories = Category
-    context = {"progresses":progresses,"categories":categories}
+
+    context = {"progresses":progresses}
     return render(request,"progress.html",context)
     
     
-    
+@login_required(login_url="user:login")    
 def completed(request):
     results = Result.objects.filter(player=request.user)
 

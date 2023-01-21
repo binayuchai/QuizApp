@@ -4,7 +4,7 @@
 <ul>
     {% for progress in progresses %}
   
-    <li><a href="">{{ progress.category }}</a></li>
+    <li><a href="{% url 'quizapp:q_question' progress.category.id %}">{{ progress.category }}</a></li>
 
 </ul>
 {% endfor %}

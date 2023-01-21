@@ -2,17 +2,21 @@
 {% extends 'base_temp.html' %}
 {% block maincontent %}
 
+{% load static %}
+    <div class="mt-0">
+        <img src="{% static 'images/QuizImage.svg' %}" class="img-fluid"  alt="Quiz Image">
+    </div>
+    <div class="mt-3 text-center ">
+        <h2> Choose Category</h2>
+        <h5 class="mt-4 py-2" >
+            <ul class="list-group">
+                {% for cat in categories %}
+                <li class="mt-2 list-group-item list-group-item-action" ><a class="text-decoration-none text-secondary text-capitalize" href="{% url 'quizapp:q_question' cat.id %}">{{cat.category}}</a></li>
+    
+            {% endfor %}
+            </ul>
+        </h5>
+    </div>
 
 
-<div class="mt-3">
-    <h2> Choose Category</h2>
-    <h5 class="mt-4 py-2" >
-        <ol>
-            {% for cat in categories %}
-            <li class="mt-2" ><a class="text-decoration-none" href="{% url 'quizapp:q_question' cat.id %}">{{cat.category}}</a></li>
-
-        {% endfor %}
-        </ol>
-    </h5>
-</div>
 {% endblock maincontent %}
