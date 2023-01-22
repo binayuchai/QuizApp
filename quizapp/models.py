@@ -48,6 +48,10 @@ class Progress(TimeStampModal):
     is_started = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
     
+
+    
+    
+    
     def __str__(self):
         return str(self.category)
     
