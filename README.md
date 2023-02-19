@@ -1,1 +1,1 @@
-This is Quiz App Django Project 
+This is a Quiz App based on Django
