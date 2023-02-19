@@ -31,10 +31,6 @@ def result(request):
             if answer == answer_user:
                 marks_count = marks_count + 1
                              
-                
-            
-            
-    print(marks_count)
     category_result = request.POST.get('result_category')
     # print(question2)
     # question1 = QQuestion.objects.get(title=question2)
@@ -71,10 +67,6 @@ def q_question(request,categoryid):
         }
                         
         )
-    
-    # paginator = Paginator(questions,10)
-    # page_number  = request.Get.page('page')
-    # page_obj = paginator.get_page(page_number)
     
     context = {"questions":questions,"answers":answers,"categories":categories}
     
